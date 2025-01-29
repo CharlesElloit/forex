@@ -1,0 +1,5 @@
+go get github.com/joho/godotenv/cmd/godotenv
+go get github.com/kataras/iris/v12@master
+go get -u gorm.io/gorm
+go get gorm.io/driver/postgres
+go get github.com/go-playground/validator/v10@latest
