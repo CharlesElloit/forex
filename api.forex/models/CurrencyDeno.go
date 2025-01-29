@@ -22,7 +22,7 @@ type Fx_Currency_Deno struct {
 	AllowDecimalPrecision bool      `json:"allow_decimal_precision" gorm:"default:false"`                                        //BOOLEAN NOT NULL DEFAULT FALSE
 	DecimalPrecisionDigit int       `json:"decimal_precision_digit" gorm:"type:int"`                                             //INTEGER NULL
 	IsCoin                bool      `json:"is_coin" gorm:"default:false"`                                                        // BOOLEAN NOT NULL DEFAULT FALSE
-	CreatedDate           string    `json:"created_date" gorm:"type:date;not null;default:current_date"`                         // DATE NOT NULL DEFAULT CURRENT_DATE
+	CreatedDate           time.Time `json:"created_date" gorm:"type:varchar(15);not null;default:current_date"`                  // DATE NOT NULL DEFAULT CURRENT_DATE
 	CreatedTime           time.Time `json:"created_time" gorm:"type:varchar(8);not null;default:to_char(now(),'HH24:MI:SS AM')"` //VARCHAR(8) NOT NULL DEFAULT TO_CHAR(NOW(), 'HH24:MI:SS AM')
 	CreatedByID           uuid.UUID `json:"createdby_id" gorm:"not null"`                                                        // INTEGER REFERENCES fx_user(id) NOT NULL
 	LastmodifiedDate      string    `json:"lastmodified_date"`                                                                   // DATE NULL
