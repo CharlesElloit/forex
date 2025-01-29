@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  api-forex:
+    image: api-forex
+    build: .
+    init: true
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres:foobarbaz@db:5432/postgres
+    networks:
+      - backend
+    ports:
+      - 4000:4000
+    restart: unless-stopped
+
+  db:
+    image: postgres:17.2-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=foobarbaz
+    networks:
+      - backend
+    ports:
+      - 5431:5431
+volumes:
+  pgdata:
+networks:
+  backend:
