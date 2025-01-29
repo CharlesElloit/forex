@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"api.forex.com/models"
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,15 +12,19 @@ import (
 var DB *gorm.DB
 
 func connectToDB() *gorm.DB {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Error loading .env file")
-	}
-
 	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		content, err := os.ReadFile(os.Getenv("DATABASE_URL_FILE"))
+		if err != nil {
+			log.Fatal(err)
+		}
+		dsn = string(content)
+	}
 	db, dbErr := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if dbErr != nil {
-		log.Panic("Fail to connection to the database.")
+		log.Fatalf("⛔ Unable to connect to database: %v\n", dbErr)
+	} else {
+		log.Println("Database connected... 🥇")
 	}
 
 	DB = db

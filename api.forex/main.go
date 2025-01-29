@@ -14,14 +14,16 @@ func main() {
 	storage.InitializeDB()
 	app := iris.Default()
 
+	healthCheck := app.Party("/ping")
+	{
+		healthCheck.Get("/", func(ctx iris.Context) {
+			ctx.JSON(iris.StatusOK)
+		})
+	}
+
 	forex_rate := app.Party("/api/hello")
 	{
 		forex_rate.Get("/", routes.HelloWorld)
-	}
-
-	contacts := app.Party("/api/contacts")
-	{
-		contacts.Get("/all", routes.GetContacts)
 	}
 
 	port := os.Getenv("PORT")
