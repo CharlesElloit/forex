@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_Currency struct {
+type Currency struct {
 	ID                       uuid.UUID  `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"`
 	CurrencyName             string     `json:"currency_name" gorm:"unique"`
 	CurrencyCode             string     `json:"currency_code" gorm:"unique"`

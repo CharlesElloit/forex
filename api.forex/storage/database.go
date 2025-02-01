@@ -34,16 +34,17 @@ func connectToDB() *gorm.DB {
 func performMigrations(db *gorm.DB) {
 	db.AutoMigrate(
 		// add more models here
-		&models.Fx_GL{},
-		&models.Fx_User{},
-		&models.Fx_Rate{},
-		&models.Fx_Branch{},
-		&models.Fx_GL_Type{},
-		&models.Fx_GL_Total{},
-		&models.Fx_Currency{},
-		&models.Fx_Transaction{},
-		&models.Fx_Charges_Type{},
-		&models.Fx_Currency_Deno{},
+		&models.GL{},
+		&models.User{},
+		&models.Rate{},
+		&models.Branch{},
+		&models.GlType{},
+		&models.GlTotal{},
+		&models.Currency{},
+		&models.Transaction{},
+		&models.ChargesType{},
+		&models.CurrencyDeno{},
+		&models.PasswordPolicy{},
 	)
 }
 

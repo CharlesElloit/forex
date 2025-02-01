@@ -9,7 +9,7 @@ import (
 )
 
 func GetContacts(ctx iris.Context) {
-	var user models.Fx_User
+	var user models.User
 	users := storage.DB.Find(&user)
 	if users.Error != nil {
 		fmt.Println(users.Error)

@@ -33,10 +33,11 @@ type PasswordPolicy struct {
 	MinLockoutCount               int       `json:"min_lockout_count" gorm:"type:int;default:0"`
 	CreatedDate                   time.Time `json:"created_date" gorm:"type:varchar(15);not null;default:current_date"`
 	CreatedTime                   time.Time `json:"created_time" gorm:"type:varchar(8);not null;default:to_char(now(),'HH24:MI:SS AM')"`
-	CreatedByID                   uuid.UUID `json:"createdby_id" gorm:"not null"`
+	CreatedbyID                   uuid.UUID `json:"createdby_id" gorm:"type:uuid;foreignKey:UserID"`
 	LastmodifiedDate              string    `json:"lastmodified_date"`
 	LastmodifiedTime              time.Time `json:"lastmodified_time"`
-	LastmodifiedByID              uuid.UUID `json:"lastmodifiedby_id"`
+	LastmodifiedbyID              uuid.UUID `json:"lastmodifiedby_id" gorm:"type:uuid;foreignKey:UserID;default:null"`
 	SourceIp                      string    `json:"source_ip" gorm:"type:varchar(15);not null"`
 	SourceBrowser                 string    `json:"source_browser" gorm:"type:varchar(30);not null"`
+	UserID                        uuid.UUID
 }

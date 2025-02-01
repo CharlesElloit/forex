@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_Transaction struct {
+type Transaction struct {
 	ID                uuid.UUID  `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"`
 	Srno              int        `json:"srno"`
 	BranchId          int        `json:"branch_id"`

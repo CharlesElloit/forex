@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_Currency_Deno struct {
+type CurrencyDeno struct {
 	ID                    uuid.UUID `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"`                     //SERIAL PRIMARY KEY NOT NULL UNIQUE
 	DenoName              string    `json:"deno_name" gorm:"type:varchar(100);not null"`                                         // VARCHAR(100) NOT NULL
 	DenoAmount            float32   `json:"deno_amount" gorm:"not null"`                                                         // FLOAT NOT NULL

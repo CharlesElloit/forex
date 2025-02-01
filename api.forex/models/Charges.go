@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_Charges_Type struct {
+type ChargesType struct {
 	ID               uuid.UUID  `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"` //SERIAL PRIMARY KEY NOT NULL UNIQUE
 	Name             string     `json:"name"`                                                            //VARCHAR(100) NOT NULL
 	Description      string     `json:"description"`                                                     //VARCHAR(200) NULL

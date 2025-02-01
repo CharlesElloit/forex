@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_Branch struct {
+type Branch struct {
 	ID               uuid.UUID  `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"`            //SERIAL PRIMARY KEY NOT NULL
 	Name             string     `json:"name" gorm:"type:varchar(30)"`                                               //VARCHAR(30) NOT NULL
 	Code             int        `json:"code"`                                                                       //INTEGER NOT NULL

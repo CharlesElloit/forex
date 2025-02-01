@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_GL_Total struct {
+type GlTotal struct {
 	ID               uuid.UUID `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"`            //SERIAL NOT NULL PRIMARY KEY UNIQUE
 	BranchID         string    `json:"branch_id"`                                                                  //INTEGER REFERENCES fx_branch(id) NOT NULL
 	HostBranch       string    `json:"host_branch"`                                                                //INTEGER REFERENCES fx_branch(id) NOT NULL

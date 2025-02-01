@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Fx_GL struct {
+type GL struct {
 	ID                   uuid.UUID `json:"id" gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"`
 	BranchID             string    `json:"branch_id"`        // reference to the fx_branch table(id)
 	GLTypeID             string    `json:"gl_type_id"`       // reference to the fx_gl_type(id)
