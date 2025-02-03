@@ -35,11 +35,15 @@ func performMigrations(db *gorm.DB) {
 	db.AutoMigrate(
 		// add more models here
 		&models.GL{},
+		&models.Role{},
 		&models.User{},
 		&models.Rate{},
+		&models.Module{},
 		&models.Branch{},
 		&models.GlType{},
 		&models.GlTotal{},
+		&models.UserRole{},
+		&models.Resource{},
 		&models.Currency{},
 		&models.Transaction{},
 		&models.ChargesType{},
