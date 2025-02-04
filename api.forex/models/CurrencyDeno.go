@@ -24,23 +24,23 @@ type CurrencyDeno struct {
 	IsCoin                bool      `json:"is_coin" gorm:"default:false"`
 	CreatedDate           time.Time `json:"created_date" gorm:"type:date;not null;default:current_date"`
 	CreatedTime           time.Time `json:"created_time" gorm:"type:varchar(8);not null;default:to_char(now(),'HH24:MI:SS AM')"`
-	CreatedbyID           uuid.UUID `gorm:"not null;index"`
+	CreatedbyID           uuid.UUID `gorm:"type:uuid;not null;index"`
 	LastmodifiedDate      string    `json:"lastmodified_date" gorm:"type:date;null"`
-	LastmodifiedTime      time.Time `json:"lastmodified_time" gorm:"type:varchar(8);not null;default:to_char(now(),'HH24:MI:SS AM')"`
-	LastmodifiedbyID      uuid.UUID `gorm:"not null;index"`
-	IsDeleted             bool      `json:"is_deleted"`
-	DeletedDate           string    `json:"deleted_date"`
-	DeletedTime           time.Time `json:"deleted_time"`
-	DeletedbyID           uuid.UUID `json:"deletedby_id"`
-	IsActive              bool      `json:"is_active"`
-	IsApproved            bool      `json:"is_approved"`
-	ApprovedTime          time.Time `json:"approved_time"`
-	ApprovedbyID          uuid.UUID `json:"approvedby_id"`
+	LastmodifiedTime      time.Time `json:"lastmodified_time" gorm:"type:varchar(12);null;default:to_char(now(),'HH24:MI:SS AM')"`
+	LastmodifiedbyID      uuid.UUID `gorm:"type:uuid;null;index"`
+	IsDeleted             bool      `json:"is_deleted" gorm:"type:boolean;not null;default:false"`
+	DeletedDate           time.Time `json:"deleted_date" gorm:"type:date;null"`
+	DeletedTime           time.Time `json:"deleted_time" gorm:"type:varchar(12);null"`
+	DeletedbyID           uuid.UUID `json:"deletedby_id" gorm:"type:uuid;null"`
+	IsActive              bool      `json:"is_active" gorm:"type:boolean;not null;default:false"`
+	IsApproved            bool      `json:"is_approved" gorm:"type:boolean;not null;default:false"`
+	ApprovedTime          time.Time `json:"approved_time" gorm:"type:varchar(12);null"`
+	ApprovedbyID          uuid.UUID `json:"approvedby_id" gorm:"type:uuid;null"`
 	SourceIp              string    `json:"source_ip" gorm:"type:varchar(15);not null"`
 	SourceBrowser         string    `json:"source_browser" gorm:"type:varchar(30);not null"`
-	RejectedDate          string    `json:"rejected_date"`
-	RejectedTime          string    `json:"rejected_time"`
-	RejectedbyID          uuid.UUID `json:"rejectedby_id"`
+	RejectedDate          time.Time `json:"rejected_date" gorm:"type:date;null"`
+	RejectedTime          string    `json:"rejected_time" gorm:"type:varchar(12);null"`
+	RejectedbyID          uuid.UUID `json:"rejectedby_id" gorm:"type:uuid;null"`
 
 	FkCurrencyID        Currency `gorm:"foreignKey:CurrencyID;"`
 	FkCreatedbyID       User     `gorm:"foreignKey:CreatedbyID;"`
