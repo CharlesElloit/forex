@@ -30,14 +30,17 @@ type PasswordPolicy struct {
 	RequireMfaAfterFailedAttempts int       `json:"require_mfa_after_failed_attempts" gorm:"type:int;default:0"`
 	IsPolicyActive                bool      `json:"is_policy_active" gorm:"type:boolean;default:false"`
 	EnablePermanentLockout        bool      `json:"enable_permanent_lockout" gorm:"type:boolean;default:false"`
+	AllowPwdUpdateBeforeExpiry    bool      `josn:"allow_pwd_update_before_expiry" gorm:"type:boolean;default:true"`
 	MinLockoutCount               int       `json:"min_lockout_count" gorm:"type:int;default:0"`
 	CreatedDate                   time.Time `json:"created_date" gorm:"type:varchar(15);not null;default:current_date"`
 	CreatedTime                   time.Time `json:"created_time" gorm:"type:varchar(8);not null;default:to_char(now(),'HH24:MI:SS AM')"`
-	CreatedbyID                   uuid.UUID `json:"createdby_id" gorm:"type:uuid;foreignKey:UserID"`
+	CreatedbyID                   uuid.UUID `json:"createdby_id" gorm:"type:uuid;not null"`
 	LastmodifiedDate              string    `json:"lastmodified_date"`
 	LastmodifiedTime              time.Time `json:"lastmodified_time"`
-	LastmodifiedbyID              uuid.UUID `json:"lastmodifiedby_id" gorm:"type:uuid;foreignKey:UserID;default:null"`
+	LastmodifiedbyID              uuid.UUID `json:"lastmodifiedby_id" gorm:"type:uuid;default:null"`
 	SourceIp                      string    `json:"source_ip" gorm:"type:varchar(15);not null"`
 	SourceBrowser                 string    `json:"source_browser" gorm:"type:varchar(30);not null"`
-	UserID                        uuid.UUID
+
+	FkCreatedbyID      User `gorm:"foreignKey:CreatedbyID;"`
+	FkLastmodifiedbyID User `gorm:"foreignKey:LastmodifiedbyID;"`
 }
