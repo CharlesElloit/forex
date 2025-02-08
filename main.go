@@ -1,18 +1,18 @@
 package main
 
 import (
-	"os"
-
-	"api.forex.com/routes"
+	forexCommon "api.forex.com/forex.common"
+	forexRate "api.forex.com/forex.rates/api"
 	"api.forex.com/storage"
-	"github.com/joho/godotenv"
+	"github.com/go-playground/validator"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/kataras/iris/v12"
 )
 
 func main() {
-	godotenv.Load()
 	storage.InitializeDB()
 	app := iris.Default()
+	app.Validator = validator.New()
 
 	healthCheck := app.Party("/ping")
 	{
@@ -21,15 +21,14 @@ func main() {
 		})
 	}
 
-	forex_rate := app.Party("/api/hello")
+	forex_rate := app.Party("/api/exchange/rate")
 	{
-		forex_rate.Get("/", routes.HelloWorld)
+		forex_rate.Post("/add", forexRate.AddNewExchangeRate)
 	}
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "4000"
-	}
+	var (
+		port = forexCommon.LoadEnv("PORT", ":3000")
+	)
 
 	app.Listen(":" + port)
 }
