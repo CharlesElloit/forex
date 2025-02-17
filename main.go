@@ -1,9 +1,10 @@
 package main
 
 import (
+	forexAuth "api.forex.com/forex.auth/api"
 	forexCommon "api.forex.com/forex.common"
 	forexRate "api.forex.com/forex.rates/api"
-	forexReport "api.forex.com/forex.report/rate"
+	forexReport "api.forex.com/forex.report/api/rate"
 	"api.forex.com/storage"
 	"github.com/go-playground/validator"
 	_ "github.com/joho/godotenv/autoload"
@@ -22,9 +23,14 @@ func main() {
 		})
 	}
 
+	auth := app.Party("/api/user/auth")
+	{
+		auth.Post("/login", forexAuth.Login)
+	}
+
 	forex_rate := app.Party("/api/exchange/rate")
 	{
-		forex_rate.Post("/add", forexRate.AddNewExchangeRate)
+		forex_rate.Post("/add", forexRate.Add)
 		forex_rate.Get("/report/rates", forexReport.GetRate)
 	}
 

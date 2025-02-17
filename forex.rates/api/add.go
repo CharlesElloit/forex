@@ -29,7 +29,7 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
-func AddNewExchangeRate(ctx iris.Context) {
+func Add(ctx iris.Context) {
 	//check if the user performing this operation has adequate permissions.
 	var input common.AddRateInput
 	if err := ctx.ReadJSON(&input); err != nil {
@@ -57,7 +57,6 @@ func AddNewExchangeRate(ctx iris.Context) {
 	 * and also it shouldn't allow adding new rate after a mid rate has been added for
 	 * that particular currency.
 	 */
-
 	sequence, err := utilities.GenerateSquenceNumber(&models.Rate{})
 	if err != nil {
 		utilities.CreateInternalServerError(ctx)
