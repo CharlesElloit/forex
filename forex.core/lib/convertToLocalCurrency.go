@@ -19,15 +19,8 @@
 package forexCore
 
 /*
- * The function takes in selling and buying rates and uses
- * this formula to calculate it.
- *     average rate = selling rate + buying rate
- *                    --------------------------
- *                                 2
+ * This function converts the amount to the local currency eqvantent.
  */
-func CalculateAveragegRate(selling_rate, buy_rate float32) (average_rate float32) {
-	if selling_rate <= 0 || buy_rate <= 0 {
-		return 0
-	}
-	return (selling_rate + buy_rate) / 2
+func ConvertToLocalCurrency(amount float64, rate float64) (lcyEqvantent float64) {
+	return (amount * rate)
 }
