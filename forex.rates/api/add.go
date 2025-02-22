@@ -21,6 +21,7 @@ package forexRate
 import (
 	"strings"
 
+	forexCore "api.forex.com/forex.core/lib"
 	"api.forex.com/forex.rates/common"
 	"api.forex.com/models"
 	"api.forex.com/storage"
@@ -53,7 +54,7 @@ func Add(ctx iris.Context) {
 
 	/*
 	 * TODO:
-	 * Don't allow new rate to be added when the pervious added ra3320te is not yet passed
+	 * Don't allow new rate to be added when the pervious added rate is not yet passed
 	 * and also it shouldn't allow adding new rate after a mid rate has been added for
 	 * that particular currency.
 	 */
@@ -62,6 +63,19 @@ func Add(ctx iris.Context) {
 		utilities.CreateInternalServerError(ctx)
 		return
 	}
+
+	/*
+	 * Check if the average rate is passed in, if not calculate the average rate and store
+	 * that instead of storing zero
+	 * TODO: Clarity check: if the rate can be less than zero.
+	 */
+	if input.AverageRate == 0 {
+		input.AverageRate = forexCore.CalculateAveragegRate(input.SellingRate, input.BuyingRate)
+	}
+
+	/* TODO:
+	 * Make sure not exchange rates can be added after a mid-rate has been added for the day.
+	 */
 
 	// If we reach here meaning the rate doesn't exists and we'll need to add it.
 	// TODO: replace the createdbyID with the currently login user id.
