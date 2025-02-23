@@ -19,27 +19,25 @@
 package common
 
 import (
+	forexCore "api.forex.com/forex.core/common"
 	"api.forex.com/models"
 	"api.forex.com/storage"
+	"api.forex.com/utilities"
 	"github.com/google/uuid"
-	"gorm.io/gorm"
+	"github.com/kataras/iris/v12"
 )
 
-func GetAndHandleRateExists(
-	rate *models.Rate,
-	selling_rate float32,
-	buying_rate float32,
-	currency_id uuid.UUID,
-) (bool, error) {
-	var rateExists *gorm.DB
-	if rateExists = storage.DB.
-		Where("selling_rate = ? AND buying_rate = ? AND currency_id = ? AND created_date = current_date",
-			selling_rate, buying_rate, currency_id).
-		Find(&rate); rateExists.Error != nil {
-		return false, rateExists.Error
+func IsRateApproved(rateType forexCore.EnumType, currency_id uuid.UUID, ctx iris.Context) bool {
+	rateMode := forexCore.EnumType(rateType)
+	if !rateMode.IsValid() {
+		utilities.CreateError(iris.StatusBadRequest, "Incorrect rate mode", "Incorrect rate mode", ctx)
 	}
-	if rateExists.RowsAffected > 0 {
-		return true, nil
-	}
-	return false, nil
+	//make a query to the database checking if the rate exists and approved.
+	var rate models.Rate
+	query := storage.DB.Model(&models.Rate{}).
+		Where("created_date = ? AND currency_id = ? AND rate_mode = ? AND is_approved = ?",
+			forexCore.CurrentDate, currency_id, rateMode, false).
+		Order("created_time DESC").Limit(1).Find(&rate)
+
+	return query.RowsAffected > 0
 }
