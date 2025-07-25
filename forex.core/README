@@ -1,0 +1,14 @@
+| Function Name             | Purpose                           |
+| ------------------------- | --------------------------------- |
+| `ConvertCurrency`         | Convert amount between currencies |
+| `GetExchangeRate`         | Get current FX rate               |
+| `RefreshExchangeRates`    | Sync/pull updated rates           |
+| `CreateTransaction`       | Log a new transaction             |
+| `GetTransactionByID`      | Retrieve a transaction            |
+| `ListUserTransactions`    | Get user's transaction history    |
+| `CancelTransaction`       | Cancel or rollback a transaction  |
+| `CalculateTransactionFee` | Apply fee logic                   |
+| `ApplyMarkupRate`         | Add markup to base rate           |
+| `GetHistoricalRates`      | Fetch past rates (if applicable)  |
+| `AnalyzeTrends`           | Provide market analysis           |
+| `ValidateCurrencyCode`    | Check if currency is valid        |
